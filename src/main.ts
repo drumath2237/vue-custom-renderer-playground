@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { a } from "./nodeOps";
+import { render } from "./nodeOps";
 
 function main() {
   const div = document.getElementById("app");
@@ -10,7 +10,7 @@ function main() {
 
   div.textContent = "Hello";
 
-  a();
+  render();
 }
 
 main();

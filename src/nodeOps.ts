@@ -28,11 +28,7 @@ export const nodeOps: NodeOps = {
   setText(_node, _text) {},
 };
 
-function createInternalComponent() {
-  return defineComponent({});
-}
-
-export function a() {
+export function render() {
   const renderer = createRenderer<INode, IElement>(nodeOps);
-  renderer.render(h(createInternalComponent()), {});
+  renderer.render(h(defineComponent({})), {});
 }
