@@ -1,4 +1,5 @@
-import { createRenderer, defineComponent, h, type RendererOptions } from "@vue/runtime-dom";
+import { createRenderer, h, type RendererOptions } from "@vue/runtime-dom";
+import { compile } from "vue";
 
 interface INode {
   id?: string;
@@ -64,14 +65,11 @@ export function render() {
   const renderer = createRenderer<INode, IElement>(nodeOps);
   renderer.render(
     h(
-      defineComponent({
-        template: "<Foo>a</Foo>",
-      }),
-      // compile(`
-      //   <div>
-      //     a
-      //   </div>
-      // `),
+      compile(`
+        <Foo>
+          a
+        </Foo>
+      `),
     ),
     {},
   );
