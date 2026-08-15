@@ -1,5 +1,6 @@
 import { createRenderer, h, type RendererOptions } from "@vue/runtime-dom";
-import { compile } from "vue";
+
+import Foo from "./Foo.vue";
 
 interface INode {
   id?: string;
@@ -63,14 +64,5 @@ export const nodeOps: NodeOps = {
 
 export function render() {
   const renderer = createRenderer<INode, IElement>(nodeOps);
-  renderer.render(
-    h(
-      compile(`
-        <Foo>
-          a
-        </Foo>
-      `),
-    ),
-    {},
-  );
+  renderer.render(h(Foo), {});
 }
