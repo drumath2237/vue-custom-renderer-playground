@@ -1,14 +1,10 @@
-<script setup lang="ts">
-import Hoge from "./Hoge.vue";
-</script>
-
 <template>
   <ElementA>
-    a
+    <ElementB />
+  </ElementA>
+  <ElementA>
     <ElementB>
-      <!-- some comment -->
-      some text
+      <ElementA />
     </ElementB>
   </ElementA>
-  <ElementB />
 </template>

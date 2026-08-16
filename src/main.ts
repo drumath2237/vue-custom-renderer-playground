@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { render } from "./nodeOps";
+import { render, showdownNodeTree } from "./nodeOps";
 
 function main() {
   const div = document.getElementById("app");
@@ -8,10 +8,10 @@ function main() {
     return;
   }
 
-  div.textContent = "Hello";
-
   const root = render();
   console.log("root", root);
+
+  div.textContent = showdownNodeTree({ node: root });
 }
 
 main();

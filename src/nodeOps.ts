@@ -104,3 +104,37 @@ export function render() {
   renderer.render(h(Foo), rootElement);
   return rootElement;
 }
+
+export function showdownNodeTree(prop: {
+  node: Nodes;
+  depth?: number;
+  lastInChildren?: boolean;
+}): string {
+  const { node, depth, lastInChildren } = { depth: 0, lastInChildren: false, ...prop };
+
+  let output = "";
+
+  for (let i = 0; i < depth - 1; i++) {
+    output += "│    ";
+  }
+
+  let indexingChar = "";
+  if (depth === 0) {
+    indexingChar = "";
+  } else if (lastInChildren) {
+    indexingChar = "└─";
+  } else {
+    indexingChar = "├─";
+  }
+  output += `${indexingChar} ${node.nodeType}\n`;
+
+  if (node.children) {
+    for (let i = 0; i < node.children.length; i++) {
+      const child = node.children[i];
+      const isLast = i === node.children.length - 1;
+      output += showdownNodeTree({ node: child, depth: depth + 1, lastInChildren: isLast });
+    }
+  }
+
+  return output;
+}

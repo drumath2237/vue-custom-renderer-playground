@@ -1,6 +1,6 @@
 type NodeBase = {
   parent: Elements | null;
-  children: NodeBase[];
+  children: Nodes[];
 };
 
 type ElementBase = NodeBase & {
