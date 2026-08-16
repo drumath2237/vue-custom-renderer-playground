@@ -10,7 +10,8 @@ function main() {
 
   div.textContent = "Hello";
 
-  render();
+  const root = render();
+  console.log("root", root);
 }
 
 main();

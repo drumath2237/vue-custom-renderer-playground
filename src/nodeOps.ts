@@ -2,51 +2,81 @@ import { createRenderer, h, type RendererOptions } from "@vue/runtime-dom";
 
 import Foo from "./Foo.vue";
 
-interface INode {
-  id?: string;
-}
-interface IElement extends INode {
-  elementName?: string;
-}
+import {
+  isElementTypeString,
+  type ElementA,
+  type ElementB,
+  type Elements,
+  type InvalidElement,
+  type Nodes,
+  type NullNode,
+  type RootElement,
+  type TextNode,
+} from "./nodes";
 
-interface ITextNode extends INode {
-  text: string;
-}
-
-interface ICommentNode extends INode {
-  commentText?: string;
-}
-
-type NodeOps = RendererOptions<INode, IElement>;
+type NodeOps = RendererOptions<Nodes, Elements>;
 
 export const nodeOps: NodeOps = {
   insert(el, parent) {
-    console.log(`inserted: ${el.id}, ${parent.elementName}`);
+    el.parent = parent;
+    parent.children.push(el);
+    console.log(`inserted:`, el, "parent:", parent);
   },
 
-  createComment(type): ICommentNode {
-    const comment = { commentText: type } satisfies ICommentNode;
-    console.log(`comment: ${comment.commentText}`);
-    return comment;
+  createComment(_type): NullNode {
+    const nullNode = {
+      children: [],
+      nodeType: "NullNode",
+      parent: null,
+    } satisfies NullNode;
+    return nullNode;
   },
 
-  createElement(type) {
-    const elm = { elementName: type } satisfies IElement;
-    console.log(`create element: ${elm.elementName}`);
-    return elm;
+  createElement(type): Elements {
+    console.log("create element:", type);
+    const invalidElement = {
+      nodeType: "InvalidElement",
+      children: [],
+      parent: null,
+      reason: `invalid node type string:${type}`,
+      id: "invalid",
+    } satisfies InvalidElement;
+    if (!isElementTypeString(type)) {
+      return invalidElement;
+    }
+
+    switch (type) {
+      case "ElementA":
+        return {
+          nodeType: "ElementA",
+          children: [],
+          parent: null,
+          id: crypto.randomUUID(),
+        } satisfies ElementA;
+      case "ElementB":
+        return {
+          nodeType: "ElementB",
+          children: [],
+          parent: null,
+          id: crypto.randomUUID(),
+        } satisfies ElementB;
+      default:
+        return invalidElement;
+    }
   },
 
-  createText(text): ITextNode {
+  createText(text): TextNode {
     console.log(`create text: ${text}`);
-    return { text };
+    return { text, children: [], nodeType: "TextNode", parent: null };
   },
 
-  nextSibling(_node) {
+  nextSibling(node) {
+    console.log("next sibling:", node);
     return null;
   },
 
-  parentNode(_node) {
-    return null;
+  parentNode(node) {
+    return node.parent;
   },
 
   patchProp(_el, _key, _prevValue, _nextValue) {},
@@ -54,15 +84,23 @@ export const nodeOps: NodeOps = {
   remove(_el) {},
 
   setElementText(node, text) {
-    console.log(`set element text: element:${node.elementName} to ${text}`);
+    console.log(`set element text:`, text, "to", node);
   },
 
   setText(node, text) {
-    console.log(`set element text: node:${node.id} to ${text}`);
+    console.log(`set element text: node:`, text, "to", node);
   },
 };
 
 export function render() {
-  const renderer = createRenderer<INode, IElement>(nodeOps);
-  renderer.render(h(Foo), {});
+  const renderer = createRenderer<Nodes, Elements>(nodeOps);
+
+  const rootElement = {
+    id: "root",
+    parent: null,
+    children: [],
+    nodeType: "RootElement",
+  } satisfies RootElement;
+  renderer.render(h(Foo), rootElement);
+  return rootElement;
 }
