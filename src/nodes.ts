@@ -1,10 +1,13 @@
 type NodeBase = {
+  type: "NODE";
   parent: Elements | null;
-  children: Nodes[];
 };
 
-type ElementBase = NodeBase & {
+type ElementBase = {
+  type: "ELEMENT";
+  parent: Elements | null;
   id: string;
+  children: Nodes[];
 };
 
 export type RootElement = ElementBase & {

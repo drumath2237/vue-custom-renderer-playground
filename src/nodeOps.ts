@@ -25,9 +25,9 @@ export const nodeOps: NodeOps = {
 
   createComment(_type): NullNode {
     const nullNode = {
-      children: [],
       nodeType: "NullNode",
       parent: null,
+      type: "NODE",
     } satisfies NullNode;
     return nullNode;
   },
@@ -40,6 +40,7 @@ export const nodeOps: NodeOps = {
       parent: null,
       reason: `invalid node type string:${type}`,
       id: "invalid",
+      type: "ELEMENT",
     } satisfies InvalidElement;
     if (!isElementTypeString(type)) {
       return invalidElement;
@@ -52,6 +53,7 @@ export const nodeOps: NodeOps = {
           children: [],
           parent: null,
           id: crypto.randomUUID(),
+          type: "ELEMENT",
         } satisfies ElementA;
       case "ElementB":
         return {
@@ -59,6 +61,7 @@ export const nodeOps: NodeOps = {
           children: [],
           parent: null,
           id: crypto.randomUUID(),
+          type: "ELEMENT",
         } satisfies ElementB;
       default:
         return invalidElement;
@@ -67,7 +70,7 @@ export const nodeOps: NodeOps = {
 
   createText(text): TextNode {
     console.log(`create text: ${text}`);
-    return { text, children: [], nodeType: "TextNode", parent: null };
+    return { text, nodeType: "TextNode", parent: null, type: "NODE" };
   },
 
   nextSibling(node) {
@@ -100,6 +103,7 @@ export function render() {
     parent: null,
     children: [],
     nodeType: "RootElement",
+    type: "ELEMENT",
   } satisfies RootElement;
   renderer.render(h(Foo), rootElement);
   return rootElement;
@@ -127,6 +131,10 @@ export function showdownNodeTree(prop: {
     indexingChar = "├─";
   }
   output += `${indexingChar} ${node.nodeType}\n`;
+
+  if (node.type === "NODE") {
+    return output;
+  }
 
   if (node.children) {
     for (let i = 0; i < node.children.length; i++) {
