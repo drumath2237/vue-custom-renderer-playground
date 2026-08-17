@@ -18,6 +18,10 @@ type NodeOps = RendererOptions<Nodes, Elements>;
 
 export const nodeOps: NodeOps = {
   insert(el, parent) {
+    if (el.type === "NODE") {
+      return;
+    }
+
     el.parent = parent;
     parent.children.push(el);
     console.log(`inserted:`, el, "parent:", parent);
@@ -111,40 +115,40 @@ export function render() {
   return rootElement;
 }
 
-export function showdownNodeTree(prop: {
-  node: Nodes;
-  depth?: number;
-  lastInChildren?: boolean;
-}): string {
-  const { node, depth, lastInChildren } = { depth: 0, lastInChildren: false, ...prop };
+export function showdownNodeTree(prop: { node: Nodes; lastInChildren?: Array<boolean> }): string {
+  const { node, lastInChildren } = { lastInChildren: [], ...prop };
 
   let output = "";
 
-  for (let i = 0; i < depth - 1; i++) {
-    output += "│    ";
-  }
+  output += lastInChildren
+    .slice(0, -1)
+    .map((last) => {
+      return last ? "    " : "│   ";
+    })
+    .join("");
 
-  let indexingChar = "";
-  if (depth === 0) {
-    indexingChar = "";
-  } else if (lastInChildren) {
-    indexingChar = "└─";
-  } else {
-    indexingChar = "├─";
-  }
-  output += `${indexingChar} ${node.nodeType}\n`;
+  output += lastInChildren
+    .slice(-1)
+    .map((last) => {
+      return last ? "└─ " : "├─ ";
+    })
+    .join("");
+
+  output += `${node.nodeType}\n`;
 
   if (node.type === "NODE") {
     return output;
   }
 
-  if (node.children) {
-    for (let i = 0; i < node.children.length; i++) {
-      const child = node.children[i];
+  output += node.children
+    .map((child, i) => {
       const isLast = i === node.children.length - 1;
-      output += showdownNodeTree({ node: child, depth: depth + 1, lastInChildren: isLast });
-    }
-  }
+      return showdownNodeTree({
+        node: child,
+        lastInChildren: [...lastInChildren, isLast],
+      });
+    })
+    .join("");
 
   return output;
 }

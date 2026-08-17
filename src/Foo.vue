@@ -13,10 +13,12 @@ onMounted(() => {
 <template>
   <ElementA :foo="foo">
     <ElementB />
+    <ElementB />
   </ElementA>
   <ElementA>
     <ElementB>
       <ElementA />
     </ElementB>
   </ElementA>
+  <ElementA />
 </template>
