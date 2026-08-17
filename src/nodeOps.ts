@@ -82,7 +82,9 @@ export const nodeOps: NodeOps = {
     return node.parent;
   },
 
-  patchProp(_el, _key, _prevValue, _nextValue) {},
+  patchProp(_el, _key, _prevValue, _nextValue) {
+    console.log("patch prop", _el, _key, _prevValue, _nextValue);
+  },
 
   remove(_el) {},
 

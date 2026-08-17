@@ -1,5 +1,17 @@
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+
+const foo = ref(0);
+
+onMounted(() => {
+  setTimeout(() => {
+    foo.value = 42;
+  }, 1000);
+});
+</script>
+
 <template>
-  <ElementA>
+  <ElementA :foo="foo">
     <ElementB />
   </ElementA>
   <ElementA>
