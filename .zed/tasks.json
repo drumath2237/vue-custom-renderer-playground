@@ -1,0 +1,8 @@
+[
+  {
+    "label": "Vite Plus dev",
+    "tags": ["vite-plus"],
+    "command": "vpr",
+    "args": ["dev"]
+  }
+]
