@@ -7,7 +7,8 @@
     "dev": "vp dev",
     "build": "tsc && vp build",
     "preview": "vp preview",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "check": "vp check"
   },
   "dependencies": {
     "@vue/runtime-dom": "^3.5.42",
