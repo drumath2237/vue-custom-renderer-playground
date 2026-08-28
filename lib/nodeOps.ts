@@ -1,6 +1,4 @@
-import { createRenderer, h, type RendererOptions } from "@vue/runtime-dom";
-
-import Foo from "./Foo.vue";
+import { createRenderer, type RendererOptions, type VNode } from "@vue/runtime-dom";
 
 import {
   isElementTypeString,
@@ -101,7 +99,7 @@ export const nodeOps: NodeOps = {
   },
 };
 
-export function render() {
+export function render(component: VNode) {
   const renderer = createRenderer<Nodes, Elements>(nodeOps);
 
   const rootElement = {
@@ -111,7 +109,7 @@ export function render() {
     nodeType: "RootElement",
     type: "ELEMENT",
   } satisfies RootElement;
-  renderer.render(h(Foo), rootElement);
+  renderer.render(component, rootElement);
   return rootElement;
 }
 
