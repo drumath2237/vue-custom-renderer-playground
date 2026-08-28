@@ -1,8 +1,8 @@
-import { defineConfig } from "vite-plus";
+import { defineConfig, PluginOption } from "vite-plus";
 import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue()] as PluginOption[],
   resolve: {
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
