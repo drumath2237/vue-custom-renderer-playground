@@ -22,7 +22,6 @@ export const nodeOps: NodeOps = {
 
     el.parent = parent;
     parent.children.push(el);
-    console.log(`inserted:`, el, "parent:", parent);
   },
 
   createComment(_type): NullNode {
@@ -35,7 +34,6 @@ export const nodeOps: NodeOps = {
   },
 
   createElement(type): Elements {
-    console.log("create element:", type);
     const invalidElement = {
       nodeType: "InvalidElement",
       children: [],
@@ -71,12 +69,10 @@ export const nodeOps: NodeOps = {
   },
 
   createText(text): TextNode {
-    console.log(`create text: ${text}`);
     return { text, nodeType: "TextNode", parent: null, type: "NODE" };
   },
 
-  nextSibling(node) {
-    console.log("next sibling:", node);
+  nextSibling() {
     return null;
   },
 
@@ -84,19 +80,13 @@ export const nodeOps: NodeOps = {
     return node.parent;
   },
 
-  patchProp(_el, _key, _prevValue, _nextValue) {
-    console.log("patch prop", _el, _key, _prevValue, _nextValue);
-  },
+  patchProp(_el, _key, _prevValue, _nextValue) {},
 
   remove(_el) {},
 
-  setElementText(node, text) {
-    console.log(`set element text:`, text, "to", node);
-  },
+  setElementText() {},
 
-  setText(node, text) {
-    console.log(`set element text: node:`, text, "to", node);
-  },
+  setText() {},
 };
 
 export function render(component: VNode) {
