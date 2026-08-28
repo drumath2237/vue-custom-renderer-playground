@@ -1,5 +1,5 @@
 <script setup>
-import ElemenTree from "../lib/ElemenTree.vue";
+import { ElemenTree } from "../lib/";
 </script>
 
 <template>
