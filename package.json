@@ -7,11 +7,12 @@
     "dev": "vp dev",
     "build": "tsc && vp build",
     "preview": "vp preview",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "check": "vp check"
   },
   "dependencies": {
-    "@vue/runtime-dom": "^3.5.41",
-    "vue": "^3.5.41"
+    "@vue/runtime-dom": "^3.5.42",
+    "vue": "^3.5.42"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.8",
