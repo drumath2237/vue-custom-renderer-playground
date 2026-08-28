@@ -3,7 +3,6 @@ import { Fragment, h, onMounted, useTemplateRef } from "vue";
 import { render, showdownNodeTree } from "./nodeOps";
 
 const slots = defineSlots<{ default?: () => any }>();
-console.log(slots.default?.());
 
 const renderDiv = useTemplateRef("renderDiv");
 
