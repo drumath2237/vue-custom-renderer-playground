@@ -40,15 +40,45 @@ RootElement
         └─ ElementB
 ```
 
-These are characters that are rendered by `ElemenTree` custom characters.
+These are the characters rendered at `div.textContent` by `ElemenTree`.
 
 ## Tested Environment
 
 - Windowns 11 Homw (Pwowes)
 - Node.js 24.16.0
-- pnpm
+- pnpm 11.21.0
+- Vite+ 0.3.0
+- Vue 3.5.42
 
 ## Install & Usage
+
+```sh
+# install deps
+vp i
+
+# launch vite dev server
+vpr dev
+
+# build project
+vpr build
+```
+
+## Project Structure
+
+```txt
+/
+├─ lib/
+│    ├─ nodeOps.ts
+│    └─ ElemenTree.vue
+├─ src/
+│    ├─ App.vue
+│    └─ main.ts
+├─ index.html
+└─ package.json
+```
+
+- `lib/` folder contains custom renderer implementations
+- `src/` folder icontains Application logics that uses custom renderer in its App component.
 
 ## Author
 
