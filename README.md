@@ -1,9 +1,13 @@
 # "ElemenTree" - Vue Custom Renderer Playground
 
+[![Deploy](https://github.com/drumath2237/vue-custom-renderer-playground/actions/workflows/deploy.yml/badge.svg)](https://github.com/drumath2237/vue-custom-renderer-playground/actions/workflows/deploy.yml)
+
 ## About
 
 A playground using Vue Custom Renderer.
 The component `<ElemenTree/>` shows the structure of its children as a tree made up of ASCII characters.
+
+[Demo](https://drumath2237.github.io/vue-custom-renderer-playground/)
 
 If you write a SFC like below,
 
