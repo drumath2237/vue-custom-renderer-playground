@@ -2,8 +2,8 @@
 
 ## About
 
-A practice implementation for Vue Custom Renderer.
-The component `<ElemenTree/>` renders its structure of children components as a tree ASCII characters.
+A playground using Vue Custom Renderer.
+The component `<ElemenTree/>` shows the structure of its children as a tree made up of ASCII characters.
 
 If you write a SFC like below,
 
@@ -28,7 +28,7 @@ import { ElementA, ElementB, ElemenTree } from "../lib/";
 </template>
 ```
 
-the browser running this app will render like below.
+the app will render like below.
 
 ```txt
 Hello
@@ -44,7 +44,7 @@ These are the characters rendered at `div.textContent` by `ElemenTree`.
 
 ## Tested Environment
 
-- Windowns 11 Homw (Pwowes)
+- Windowns 11 Home (Powershell)
 - Node.js 24.16.0
 - pnpm 11.21.0
 - Vite+ 0.3.0
@@ -77,8 +77,8 @@ vpr build
 └─ package.json
 ```
 
-- `lib/` folder contains custom renderer implementations
-- `src/` folder icontains Application logics that uses custom renderer in its App component.
+- The `lib/` folder contains custom renderer implementations
+- The `src/` folder contains application logic that uses a custom renderer in its App component
 
 ## Author
 
